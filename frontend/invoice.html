@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Invoices - Smart Digital Bank</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .invoice-page {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .invoice-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .invoice-title h1 {
+            font-size: 36px;
+        }
+
+        .account-info {
+            background: rgba(255,255,255,0.10);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .account-info h3 {
+            margin-bottom: 15px;
+        }
+
+        .account-info p {
+            margin: 8px 0;
+        }
+
+        .invoice-card {
+            background: white;
+            color: #222;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.20);
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .invoice-header h2 {
+            margin: 0;
+        }
+
+        .invoice-header i {
+            font-size: 40px;
+        }
+
+        .invoice-details {
+            margin-top: 20px;
+        }
+
+        .invoice-details p {
+            margin: 12px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .invoice-details strong {
+            display: inline-block;
+            width: 220px;
+        }
+
+        .success {
+            margin-top: 20px;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .print-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #1d4ed8;
+            color: white;
+            cursor: pointer;
+            font-family: Poppins, sans-serif;
+        }
+
+        .print-button:hover {
+            opacity: 0.9;
+        }
+
+        .back-button {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 8px;
+            background: #555;
+            color: white;
+            cursor: pointer;
+            font-family: Poppins, sans-serif;
+        }
+
+        .no-invoice {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255,255,255,0.10);
+            border-radius: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+        }
+
+        @media print {
+
+            header,
+            footer,
+            .account-info,
+            .invoice-title,
+            .back-button,
+            .print-button {
+                display: none;
+            }
+
+            .invoice-page {
+                width: 100%;
+                margin: 0;
+            }
+
+            .invoice-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                page-break-after: always;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+
+        <i class="fa-solid fa-building-columns"></i>
+
+        <span>Smart Digital Bank</span>
+
+    </div>
+
+
+    <nav>
+
+        <a href="dashboard.html">Dashboard</a>
+
+        <a href="#" onclick="logout()">Logout</a>
+
+    </nav>
+
+</header>
+
+
+
+<section class="invoice-page">
+
+
+    <div class="invoice-title">
+
+        <h1>Transaction Invoices</h1>
+
+        <p>Your transaction receipts</p>
+
+    </div>
+
+
+
+    <div class="account-info">
+
+        <h3>
+            <i class="fa-solid fa-user"></i>
+            Account Information
+        </h3>
+
+        <p>
+            Account Number:
+            <strong id="accountNumber">Checking...</strong>
+        </p>
+
+        <p>
+            Account Holder:
+            <strong id="accountName">Checking...</strong>
+        </p>
+
+    </div>
+
+
+
+    <div id="invoiceContainer">
+
+        <p class="loading">
+            <i class="fa-solid fa-spinner"></i>
+            Loading invoices...
+        </p>
+
+    </div>
+
+
+
+    <div style="text-align:center; margin-top:30px;">
+
+        <button class="back-button" onclick="goBack()">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Dashboard
+
+        </button>
+
+    </div>
+
+
+</section>
+
+
+
+<footer>
+
+    © 2026 Smart Digital Bank
+
+</footer>
+
+
+
+<script>
+
+
+// ========================================
+// GET LOGIN INFORMATION
+// ========================================
+
+var account = localStorage.getItem("account");
+
+var name = localStorage.getItem("name");
+
+
+if (account === null || account === "")
+{
+
+    document.getElementById("accountNumber").innerText =
+        "Not logged in";
+
+    document.getElementById("accountName").innerText =
+        "Please login";
+
+    document.getElementById("invoiceContainer").innerHTML =
+        "<div class='no-invoice'>" +
+        "<h2>Please Login First</h2>" +
+        "<p>Login to your account to view transaction invoices.</p>" +
+        "<br>" +
+        "<a href='login.html'>Go to Login</a>" +
+        "</div>";
+
+}
+else
+{
+
+    document.getElementById("accountNumber").innerText =
+        account;
+
+    document.getElementById("accountName").innerText =
+        name || "Customer";
+
+    loadInvoices();
+
+}
+
+
+
+// ========================================
+// LOAD INVOICES
+// ========================================
+
+function loadInvoices()
+{
+
+    fetch(
+        "http://localhost:5000/invoices?account=" +
+        encodeURIComponent(account)
+    )
+
+    .then(function(response)
+    {
+        return response.json();
+    })
+
+    .then(function(data)
+    {
+
+        if (!data.success)
+        {
+
+            document.getElementById("invoiceContainer").innerHTML =
+                "<div class='no-invoice'>" +
+                "<h2>Unable to Load Invoices</h2>" +
+                "<p>" + data.message + "</p>" +
+                "</div>";
+
+            return;
+
+        }
+
+
+        var invoices = data.invoices;
+
+
+        if (!invoices || invoices.length === 0)
+        {
+
+            document.getElementById("invoiceContainer").innerHTML =
+                "<div class='no-invoice'>" +
+                "<i class='fa-solid fa-file-invoice' style='font-size:45px;'></i>" +
+                "<h2>No Transactions Yet</h2>" +
+                "<p>Your invoices will appear here after you make a deposit, withdrawal or transfer.</p>" +
+                "</div>";
+
+            return;
+
+        }
+
+
+        var html = "";
+
+
+        for (var i = 0; i < invoices.length; i++)
+        {
+
+            var invoice = invoices[i];
+
+
+            html +=
+                "<div class='invoice-card'>" +
+
+                "<div class='invoice-header'>" +
+
+                "<div>" +
+
+                "<h2>" +
+                "<i class='fa-solid fa-building-columns'></i> " +
+                "Smart Digital Bank" +
+                "</h2>" +
+
+                "<p>Transaction Invoice</p>" +
+
+                "</div>" +
+
+                "<i class='fa-solid fa-file-invoice'></i>" +
+
+                "</div>" +
+
+                "<hr>" +
+
+                "<div class='invoice-details'>" +
+
+                "<p><strong>Transaction ID:</strong>" +
+                (invoice.transaction_id || "N/A") +
+                "</p>" +
+
+                "<p><strong>Account Number:</strong>" +
+                (invoice.account || account) +
+                "</p>" +
+
+                "<p><strong>Customer Name:</strong>" +
+                (invoice.name || name || "N/A") +
+                "</p>" +
+
+                "<p><strong>Transaction Type:</strong>" +
+                (invoice.type || "N/A") +
+                "</p>" +
+
+                "<p><strong>Amount:</strong> ₹" +
+                (invoice.amount || "0") +
+                "</p>" +
+
+                "<p><strong>Previous Balance:</strong> ₹" +
+                (invoice.old_balance || "0") +
+                "</p>" +
+
+                "<p><strong>New Balance:</strong> ₹" +
+                (invoice.balance || "0") +
+                "</p>";
+
+
+            if (invoice.receiver)
+            {
+
+                html +=
+                    "<p><strong>Receiver Account:</strong>" +
+                    invoice.receiver +
+                    "</p>";
+
+            }
+
+
+            html +=
+
+                "</div>" +
+
+                "<div class='success'>" +
+
+                "<i class='fa-solid fa-circle-check'></i> " +
+
+                "Transaction Successful" +
+
+                "</div>" +
+
+                "<button class='print-button' onclick='window.print()'>" +
+
+                "<i class='fa-solid fa-print'></i> " +
+
+                "Print Invoice" +
+
+                "</button>" +
+
+                "</div>";
+
+        }
+
+
+        document.getElementById("invoiceContainer").innerHTML =
+            html;
+
+    })
+
+    .catch(function(error)
+    {
+
+        console.log(error);
+
+
+        document.getElementById("invoiceContainer").innerHTML =
+            "<div class='no-invoice'>" +
+
+            "<h2>Cannot Connect to Server</h2>" +
+
+            "<p>Make sure Flask is running on port 5000.</p>" +
+
+            "</div>";
+
+    });
+
+}
+
+
+
+// ========================================
+// BACK TO DASHBOARD
+// ========================================
+
+function goBack()
+{
+
+    window.location.href = "dashboard.html";
+
+}
+
+
+</script>
+
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>

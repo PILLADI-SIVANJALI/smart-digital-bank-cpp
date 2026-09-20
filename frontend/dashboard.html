@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Smart Digital Bank | Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+<i class="fa-solid fa-building-columns"></i>
+<span>Smart Digital Bank</span>
+</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="#" onclick="logout()">Logout</a>
+
+</nav>
+
+</header>
+
+
+<section class="dashboard">
+
+<h1 id="welcomeName">Welcome 👋</h1>
+
+<p>Your Account Overview</p>
+
+
+<!-- Balance -->
+
+<div class="balance-card">
+
+<h2>Available Balance</h2>
+
+<h1 id="dashboardBalance">₹0</h1>
+
+</div>
+
+
+<!-- Dashboard Cards -->
+
+<div class="dashboard-cards">
+
+
+<!-- Deposit -->
+
+<a href="deposit.html" class="dashboard-card">
+
+<i class="fa-solid fa-money-bill-wave"></i>
+
+<h3>Deposit</h3>
+
+</a>
+
+
+<!-- Withdraw -->
+
+<a href="withdraw.html" class="dashboard-card">
+
+<i class="fa-solid fa-wallet"></i>
+
+<h3>Withdraw</h3>
+
+</a>
+
+
+<!-- Transfer -->
+
+<a href="transfer.html" class="dashboard-card">
+
+<i class="fa-solid fa-right-left"></i>
+
+<h3>Transfer</h3>
+
+</a>
+
+
+<!-- Mini Statement -->
+
+<a href="statement.html" class="dashboard-card">
+
+<i class="fa-solid fa-file-lines"></i>
+
+<h3>Mini Statement</h3>
+
+</a>
+
+
+<!-- Profile -->
+
+<a href="profile.html" class="dashboard-card">
+
+<i class="fa-solid fa-user"></i>
+
+<h3>Profile</h3>
+
+</a>
+
+
+<!-- Invoice -->
+
+<a href="invoice.html" class="dashboard-card">
+
+<i class="fa-solid fa-receipt"></i>
+
+<h3>Invoices / Receipts</h3>
+
+</a>
+
+
+<!-- Logout -->
+
+<a href="#" onclick="logout()" class="dashboard-card">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+<h3>Logout</h3>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+<footer>
+
+© 2026 Smart Digital Bank
+
+</footer>
+
+
+<script>
+
+let name = localStorage.getItem("name");
+let balance = localStorage.getItem("balance");
+
+
+if(name == null)
+{
+    name = "Customer";
+}
+
+
+if(balance == null)
+{
+    balance = "0";
+}
+
+
+document.getElementById("welcomeName").innerHTML =
+"Welcome, " + name + " 👋";
+
+
+document.getElementById("dashboardBalance").innerHTML =
+"₹" + balance;
+
+</script>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
