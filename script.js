@@ -1,7 +1,7 @@
 // ===============================
 // SMART DIGITAL BANK - script.js
 // ===============================
-
+const API_BASE_URL = "https://smart-digital-bank-2pyn.onrender.com";
 // Show / Hide Password
 console.log("Script loaded");
 console.log("JavaScript connected");
@@ -103,7 +103,7 @@ function login(event)
     let account = document.getElementById("account").value.trim();
     let pin = document.getElementById("pin").value.trim();
 
-    fetch("/login",
+    fetch(`${API_BASE_URL}/login`,
     {
         method:"POST",
 
@@ -166,7 +166,7 @@ function depositMoney(event)
 
     let amount = document.getElementById("depositAmount").value;
 
-    fetch("/deposit",
+    fetch(`${API_BASE_URL}/deposit`,
     {
         method:"POST",
 
@@ -225,7 +225,7 @@ function withdrawMoney(event)
 
     let amount = document.getElementById("withdrawAmount").value;
 
-    fetch("/withdraw",
+    fetch(`${API_BASE_URL}/withdraw`,
     {
         method:"POST",
 
@@ -284,7 +284,7 @@ function transferMoney(event)
     let amount =
     document.getElementById("transferAmount").value;
 
-    fetch("/transfer",
+    fetch(`${API_BASE_URL}/transfer`,
     {
         method:"POST",
 
@@ -352,7 +352,7 @@ function loadInvoices()
         return;
     }
 
-    fetch("/invoices?account=" + account)
+    fetch(`${API_BASE_URL}/invoices?account=${account}`)
     .then(response => response.json())
 
     .then(data => {
