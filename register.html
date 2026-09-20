@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Smart Digital Bank</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <i class="fa-solid fa-building-columns"></i>
+        <span>Smart Digital Bank</span>
+    </div>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+
+    </nav>
+
+</header>
+
+<section class="register-page">
+
+    <div class="register-box">
+
+        <i class="fa-solid fa-user-plus register-icon"></i>
+
+        <h2>Create New Account</h2>
+
+        <form id="registerForm">
+
+            <div class="input-box">
+
+                <label>Full Name</label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter Full Name"
+                    required>
+
+            </div>
+
+            <div class="input-box">
+
+                <label>Age</label>
+
+                <input
+                    type="number"
+                    id="age"
+                    min="18"
+                    max="100"
+                    placeholder="Enter Age"
+                    required>
+
+            </div>
+
+            <div class="input-box">
+
+                <label>Mobile Number</label>
+
+                <input
+                    type="text"
+                    id="mobile"
+                    maxlength="10"
+                    placeholder="10-digit Mobile Number"
+                    required>
+
+            </div>
+
+            <div class="input-box">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter Email"
+                    required>
+
+            </div>
+
+            <div class="input-box">
+
+                <label>Initial Deposit (₹)</label>
+
+                <input
+                    type="number"
+                    id="deposit"
+                    min="1000"
+                    placeholder="Minimum ₹1000"
+                    required>
+
+            </div>
+
+            <div class="input-box">
+
+                <label>4-Digit PIN</label>
+
+                <input
+                    type="password"
+                    id="newPin"
+                    maxlength="4"
+                    placeholder="Create PIN"
+                    required>
+
+            </div>
+
+            <div class="input-box">
+
+                <label>Confirm PIN</label>
+
+                <input
+                    type="password"
+                    id="confirmPin"
+                    maxlength="4"
+                    placeholder="Confirm PIN"
+                    required>
+
+            </div>
+
+            <button class="login-button" type="submit">
+
+                Create Account
+
+            </button>
+
+            <br><br>
+
+            <p>
+
+                Already have an account?
+
+                <a href="login.html">
+
+                    Login
+
+                </a>
+
+            </p>
+
+        </form>
+
+    </div>
+
+</section>
+
+<footer>
+
+    © 2026 Smart Digital Bank
+
+</footer>
+
+<script src="js/script.js"></script>
+
+</body>
+
+</html>
