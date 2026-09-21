@@ -103,7 +103,7 @@ function login(event)
     let account = document.getElementById("account").value.trim();
     let pin = document.getElementById("pin").value.trim();
 
-    fetch(`${API_BASE_URL}/login`,
+   fetch(`${API_BASE_URL}/login`, 
     {
         method:"POST",
 
@@ -165,7 +165,6 @@ function depositMoney(event)
     let account = localStorage.getItem("account");
 
     let amount = document.getElementById("depositAmount").value;
-
     fetch(`${API_BASE_URL}/deposit`,
     {
         method:"POST",
@@ -352,7 +351,7 @@ function loadInvoices()
         return;
     }
 
-    fetch(`${API_BASE_URL}/invoices?account=${account}`)
+    fetch(`${API_BASE_URL}/invoices?account=` + account)
     .then(response => response.json())
 
     .then(data => {
